@@ -1,7 +1,7 @@
 version: '3.4'
 
 services:
-  samba:
+  datasafe_samba:
     image: dperson/samba
     environment:
       TZ: 'America/Los_Angeles'
