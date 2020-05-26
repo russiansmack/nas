@@ -1,12 +1,23 @@
 version: '2'
 
 services:
+  portainer:
+    image: portainer/portainer
+    command: -H unix:///var/run/docker.sock
+    restart: always
+    ports:
+      - 9000:9000
+      - 8000:8000
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+
   datasafe_samba:
     image: dperson/samba
     environment:
       TZ: 'America/Los_Angeles'
     networks:
-      - default
+      - samba
     ports:
       - "137:137/udp"
       - "138:138/udp"
@@ -22,5 +33,8 @@ services:
       - /mnt/datasafe:/mount:z
     command: '-s "datasafe;/mount;yes;no" -w "WORKGROUP" -n'
 
+volumes:
+  portainer_data:
+
 networks:
-  default:
+  samba:
