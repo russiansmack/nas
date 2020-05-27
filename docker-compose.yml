@@ -32,6 +32,13 @@ services:
     volumes:
       - /mnt/datasafe:/mount:z
     command: '-s "datasafe;/mount;yes;no" -w "WORKGROUP" -n'
+    
+  wsdd:
+    image: "jonasped/wsdd"
+    environment:
+      - HOSTNAME=phoenix
+    restart: unless-stopped
+    network_mode: "host"
 
 volumes:
   portainer_data:
